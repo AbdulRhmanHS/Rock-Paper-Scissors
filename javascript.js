@@ -6,7 +6,7 @@
 function getComputerChoice()
 {
     let number = Math.floor(Math.random() * 3);
-    if (number === 0) return "siccsors";
+    if (number === 0) return "scissors";
     if (number === 1) return "paper";
     if (number === 2) return "rock";
 }
@@ -28,15 +28,37 @@ function getPlayerChoice()
         return "error";
     }
 }
-console.log(getPlayerChoice());
 //Then we need to make a function that operates the game at which it
 //combares the player and computer input and declares the winner.
-//the function will take two parameters one will be combared
+
+//The function will take two parameters one will be combared.
+
+//We will make two conditions one to check the winning cases like when scissors beats
+//paper and when paper beats rock and when rock beats scissors.
+
+//the second one if both inputs are equal it will return draw.
+//if nothing satisafied these two conditions it will return lose cases.
 function playerRound(playerSelection, computerSelection)
 {
-
+    if (((playerSelection === "scissors") && (computerSelection === "paper"))
+    || ((playerSelection === "paper") && (computerSelection === "rock"))
+    || ((playerSelection === "rock") && (computerSelection === "scissors")))
+    {
+        console.log(`You win!, ${playerSelection} beats ${computerSelection}.`);
+    }
+    else if (playerSelection === computerSelection)
+    {
+        console.log("Draw!");
+    }
+    else if (playerSelection === "error")
+    {
+        console.log("Type your choice correctly!");
+    }
+    else
+    {
+        console.log(`You lose!, ${computerSelection} beats ${playerSelection}.`);
+    }
 }
-
 //We'll make a game() function that makes the game last for 5 rounds.
 function game()
 {
