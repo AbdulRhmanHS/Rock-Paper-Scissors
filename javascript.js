@@ -10,7 +10,16 @@ function getComputerChoice()
     if (number === 1) return "Paper";
     if (number === 2) return "Rock";
 }
-console.log(getComputerChoice());
+//We need to take input form the player by a prompt function to write rock, 
+//paper or sicssors.
+//We'll make it as a function that returns the player input as a string.
+//We need to make sure that this input is case insensitive to make the game
+//more playable.
+function getPlayerChoice()
+{
+    let c = prompt("Enter Rock, Paper or Scissors!", "");
+    return toLowerCase(c);
+}
 //Then we need to make a function that operates the game at which it
 //combines the player and computer input and declare the winner.
 function playerRound(playerSelection, computerSelection)
