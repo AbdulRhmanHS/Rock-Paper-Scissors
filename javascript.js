@@ -62,5 +62,12 @@ function playerRound(playerSelection, computerSelection)
 //We'll make a game() function that makes the game last for 5 rounds.
 function game()
 {
-
+    for (let i = 0; i < 5; i++)
+    {
+        playerRound(getPlayerChoice(), getComputerChoice());
+        if (i === 4) alert("Game Over!");
+    }
 }
+
+//Execute the game.
+game();
