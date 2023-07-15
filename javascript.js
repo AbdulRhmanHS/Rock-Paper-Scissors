@@ -6,9 +6,9 @@
 function getComputerChoice()
 {
     let number = Math.floor(Math.random() * 3);
-    if (number === 0) return "Siccsors";
-    if (number === 1) return "Paper";
-    if (number === 2) return "Rock";
+    if (number === 0) return "siccsors";
+    if (number === 1) return "paper";
+    if (number === 2) return "rock";
 }
 //We need to take input form the player by a prompt function to write rock, 
 //paper or sicssors.
@@ -18,10 +18,20 @@ function getComputerChoice()
 function getPlayerChoice()
 {
     let c = prompt("Enter Rock, Paper or Scissors!", "");
-    return toLowerCase(c);
+    let inputCheck = c.toLowerCase();
+    if ((inputCheck === "rock") || (inputCheck === "paper") || (inputCheck === "scissors"))
+    {
+        return inputCheck;
+    }
+    else
+    {
+        return "error";
+    }
 }
+console.log(getPlayerChoice());
 //Then we need to make a function that operates the game at which it
-//combines the player and computer input and declare the winner.
+//combares the player and computer input and declares the winner.
+//the function will take two parameters one will be combared
 function playerRound(playerSelection, computerSelection)
 {
 
