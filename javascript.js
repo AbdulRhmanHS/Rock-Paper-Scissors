@@ -1,12 +1,3 @@
-//First we need to make a function that gets random computer choice
-//of rock, paper or scissors.
-
-//We'll use a random number function that returns any number from 0, 1 and 2.
-
-//if the number is 0 it will be siccsors, if the number is 1 it will paper,
-//if the number is 2 it will be rock.
-
-
 function getComputerChoice()
 {
     let number = Math.floor(Math.random() * 3);
@@ -14,15 +5,6 @@ function getComputerChoice()
     if (number === 1) return "paper";
     if (number === 2) return "rock";
 }
-
-
-//We need to take input form the player by a prompt function to write rock, 
-//paper or sicssors.
-
-//We'll make it as a function that returns the player input as a string.
-
-//We need to make sure that this input is case insensitive to make the game
-//more playable.
 
 
 function getPlayerChoice()
@@ -38,19 +20,6 @@ function getPlayerChoice()
         return "error"; //Validates the player input.
     }
 }
-
-
-//Then we need to make a function that operates the game at which it
-//compares the player and computer input and declares the winner.
-
-//The function will take two parameters which will be compared later.
-
-//We will make two conditions one to check the winning cases like when scissors beats
-//paper and when paper beats rock and when rock beats scissors.
-
-//the second one if both inputs are equal it will return draw.
-
-//if nothing satisafies these two conditions it will return a lose case.
 
 
 function playerRound(playerSelection, computerSelection)
@@ -88,4 +57,7 @@ function game()
 
 
 //Executing the game.
-game();
+//game();
+
+const gameText = document.querySelector('.gameText');
+gameText.textContent = "Choose Rock, Paper or Scissors!";

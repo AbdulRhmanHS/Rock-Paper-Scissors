@@ -1,0 +1,30 @@
+body {
+    background-color: rgb(61, 61, 61);
+}
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 100px;
+}
+img {
+    height: auto;
+    width: 256px;
+}
+.ai img {
+    rotate: 180deg;
+    transform: scaleX(-1);
+}
+.game {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.gameText {
+    font-size: 28px;
+    color: white;
+}
+.ai, .player, .gameText {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
