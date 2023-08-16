@@ -1,24 +1,24 @@
+const gameText = document.querySelector('.gameText');
+gameText.textContent = "Choose Rock, Paper or Scissors!";
+
 function getComputerChoice()
 {
     let number = Math.floor(Math.random() * 3);
-    if (number === 0) return "scissors";
-    if (number === 1) return "paper";
-    if (number === 2) return "rock";
+    if (number === 0) {console.log("Computer choosed rock"); return "rock";}
+    if (number === 1) {console.log("Computer choosed paper"); return "paper";}
+    if (number === 2) {console.log("Computer choosed scissors"); return "scissors";}
 }
 
 
 function getPlayerChoice()
 {
-    let c = prompt("Enter Rock, Paper or Scissors!", "");
-    let inputCheck = c.toLowerCase();
-    if ((inputCheck === "rock") || (inputCheck === "paper") || (inputCheck === "scissors"))
-    {
-        return inputCheck;
-    }
-    else
-    {
-        return "error"; //Validates the player input.
-    }
+    return new Promise(resolve => {
+        const playerDiv = document.querySelector('.player');
+        const img = playerDiv.querySelectorAll('img');
+        img.forEach(icon => icon.addEventListener('click', () => {
+            resolve(icon.id);
+        }));
+    });
 }
 
 
@@ -28,36 +28,26 @@ function playerRound(playerSelection, computerSelection)
     || ((playerSelection === "paper") && (computerSelection === "rock"))
     || ((playerSelection === "rock") && (computerSelection === "scissors")))
     {
-        console.log(`You win!, ${playerSelection} beats ${computerSelection}.`);
+        gameText.textContent = `You win!, ${playerSelection} beats ${computerSelection}.`;
     }
     else if (playerSelection === computerSelection)
     {
-        console.log("Draw!");
-    }
-    else if (playerSelection === "error")
-    {
-        console.log("Type your choice correctly!");
+        gameText.textContent = 'Draw!';
     }
     else
     {
-        console.log(`You lose!, ${computerSelection} beats ${playerSelection}.`);
+        gameText.textContent = `You lose!, ${computerSelection} beats ${playerSelection}.`;
     }
 }
 
-
-//Makes the game last for 5 rounds.
-function game()
-{
-    for (let i = 0; i < 5; i++)
-    {
-        playerRound(getPlayerChoice(), getComputerChoice());
-        if (i === 4) alert("Game Over!");
+async function game() {
+    for (let i = 0; i < 5; i++) {
+        let playerChoice = await getPlayerChoice();
+        let computerChoice = getComputerChoice();
+        playerRound(playerChoice, computerChoice);
+        if (i === 4) gameText.textContent += ' Game Over!';
     }
 }
 
-
-//Executing the game.
-//game();
-
-const gameText = document.querySelector('.gameText');
-gameText.textContent = "Choose Rock, Paper or Scissors!";
+game();
+ 
