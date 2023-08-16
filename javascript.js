@@ -9,10 +9,24 @@ computerScore.textContent = `Computer score ${cscore}`;
 
 function getComputerChoice()
 {
+    const computerDiv = document.querySelector('.ai');
+    const img = computerDiv.querySelectorAll('img');
     let number = Math.floor(Math.random() * 3);
-    if (number === 0) {console.log("Computer choosed rock"); return "rock";}
-    if (number === 1) {console.log("Computer choosed paper"); return "paper";}
-    if (number === 2) {console.log("Computer choosed scissors"); return "scissors";}
+    if (number === 0) {
+        img[0].classList.add('computerSelect');
+        setTimeout(() => {img[0].classList.remove('computerSelect')}, 500);
+        return "rock";
+    }
+    if (number === 1) {
+        img[1].classList.add('computerSelect');
+        setTimeout(() => {img[1].classList.remove('computerSelect')}, 500);
+        return "paper";
+    }
+    if (number === 2) {
+        img[2].classList.add('computerSelect');
+        setTimeout(() => {img[2].classList.remove('computerSelect')}, 500); 
+        return "scissors";
+    }
 }
 
 
@@ -69,4 +83,5 @@ async function game(score) {
 }
 
 game(5);
+
  
