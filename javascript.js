@@ -7,6 +7,7 @@ gameText.textContent = "Choose Rock, Paper or Scissors!";
 playerScore.textContent = `Your score ${pscore}`;
 computerScore.textContent = `Computer score ${cscore}`;
 
+
 function getComputerChoice()
 {
     const computerDiv = document.querySelector('.ai');
@@ -14,17 +15,23 @@ function getComputerChoice()
     let number = Math.floor(Math.random() * 3);
     if (number === 0) {
         img[0].classList.add('computerSelect');
-        setTimeout(() => {img[0].classList.remove('computerSelect')}, 500);
+        img[0].addEventListener('transitionend', (e) => {
+            e.target.classList.remove('computerSelect');
+        });
         return "rock";
     }
     if (number === 1) {
         img[1].classList.add('computerSelect');
-        setTimeout(() => {img[1].classList.remove('computerSelect')}, 500);
+        img[1].addEventListener('transitionend', (e) => {
+            e.target.classList.remove('computerSelect');
+        });
         return "paper";
     }
     if (number === 2) {
         img[2].classList.add('computerSelect');
-        setTimeout(() => {img[2].classList.remove('computerSelect')}, 500); 
+        img[2].addEventListener('transitionend', (e) => {
+            e.target.classList.remove('computerSelect');
+        }); 
         return "scissors";
     }
 }
@@ -32,9 +39,25 @@ function getComputerChoice()
 
 function getPlayerChoice()
 {
+    const playerDiv = document.querySelector('.player');
+    const img = playerDiv.querySelectorAll('img');
+    //hoover functionality.
+    img.forEach(icon => {
+        icon.addEventListener('mouseenter', function() {
+            this.classList.add('hoover');
+        });
+        icon.addEventListener('mouseleave', function() {
+            this.classList.remove('hoover');
+        });
+    });
+    //selecting change the size of the icon and returns it again to normal.
+    img.forEach(icon => icon.addEventListener('click', function() {
+        this.classList.add('playerSelect');
+        this.addEventListener('transitionend', (e) => {
+            e.target.classList.remove('playerSelect');
+        });
+    }));
     return new Promise(resolve => {
-        const playerDiv = document.querySelector('.player');
-        const img = playerDiv.querySelectorAll('img');
         img.forEach(icon => icon.addEventListener('click', () => {
             resolve(icon.id);
         }));
