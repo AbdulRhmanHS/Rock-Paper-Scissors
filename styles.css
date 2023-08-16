@@ -4,7 +4,7 @@ body {
 h1 {
     text-align: center;
     color: white;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
 img {
     height: auto;
@@ -19,11 +19,20 @@ img {
     flex-direction: column;
     gap: 50px;
 }
+.info {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin: 0 50px;
+}
+.playerScore, .computerScore {
+    font-size: 40px;
+}
 .gameText {
     font-size: 28px;
     color: white;
 }
-.ai, .player, .gameText {
+.ai, .player, .gameText{
     display: flex;
     justify-content: center;
     gap: 50px;

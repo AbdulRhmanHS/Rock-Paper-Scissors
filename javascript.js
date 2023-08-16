@@ -1,5 +1,11 @@
 const gameText = document.querySelector('.gameText');
+const playerScore = document.querySelector('.playerScore');
+const computerScore = document.querySelector('.computerScore');
+let pscore = 0;
+let cscore = 0;
 gameText.textContent = "Choose Rock, Paper or Scissors!";
+playerScore.textContent = `Your score ${pscore}`;
+computerScore.textContent = `Computer score ${cscore}`;
 
 function getComputerChoice()
 {
@@ -28,7 +34,9 @@ function playerRound(playerSelection, computerSelection)
     || ((playerSelection === "paper") && (computerSelection === "rock"))
     || ((playerSelection === "rock") && (computerSelection === "scissors")))
     {
-        gameText.textContent = `You win!, ${playerSelection} beats ${computerSelection}.`;
+        gameText.textContent = `GOOD JOB!, ${playerSelection} beats ${computerSelection}.`;
+        pscore += 1;
+        playerScore.textContent = `Your score ${pscore}`;
     }
     else if (playerSelection === computerSelection)
     {
@@ -36,18 +44,29 @@ function playerRound(playerSelection, computerSelection)
     }
     else
     {
-        gameText.textContent = `You lose!, ${computerSelection} beats ${playerSelection}.`;
+        gameText.textContent = `OH NO!, ${computerSelection} beats ${playerSelection}.`;
+        cscore += 1;
+        computerScore.textContent = `Computer score ${cscore}`;
     }
 }
 
-async function game() {
-    for (let i = 0; i < 5; i++) {
+async function game(score) {
+    while (playerScore !== score || computerScore !== score) {
         let playerChoice = await getPlayerChoice();
         let computerChoice = getComputerChoice();
         playerRound(playerChoice, computerChoice);
-        if (i === 4) gameText.textContent += ' Game Over!';
+        if (pscore === score) {
+            gameText.style.color = 'lightgreen';
+            gameText.textContent = "Congrats! You Won!"
+            break;
+        }
+        else if (cscore === score) {
+            gameText.style.color = 'red';
+            gameText.textContent = 'You lost!, you better win next time.'
+            break;
+        }
     }
 }
 
-game();
+game(5);
  
