@@ -1,8 +1,12 @@
 const gameText = document.querySelector('.gameText');
 const playerScore = document.querySelector('.playerScore');
 const computerScore = document.querySelector('.computerScore');
-let pscore = 0;
-let cscore = 0;
+const button = document.querySelector('button');
+let pscore = 0; //Player score.
+let cscore = 0; //Computer score.
+let isGameRunning = false;
+
+
 gameText.textContent = "Choose Rock, Paper or Scissors!";
 playerScore.textContent = `Your score: ${pscore}`;
 computerScore.textContent = `Computer score: ${cscore}`;
@@ -20,7 +24,6 @@ function getComputerChoice()
         if (e.propertyName !== 'transform') return;
         this.classList.remove('computerSelect');
     }
-
 
     if (number === 0) {
         //Make the computer icon bigger for 0.5s and returns it to normal.
@@ -102,22 +105,37 @@ function playerRound(playerSelection, computerSelection)
 
 
 async function game(score) {
-    while (playerScore !== score || computerScore !== score) {
+    if (isGameRunning) return;
+    isGameRunning = true; 
+    while (pscore < score && cscore < score) {
         let playerChoice = await getPlayerChoice(score);
         let computerChoice = getComputerChoice();
         playerRound(playerChoice, computerChoice);
         if (pscore === score) {
             gameText.style.color = 'lightgreen';
             gameText.textContent = "Congrats! You Won!"
-            break;
+            gameOver = true;
         }
         else if (cscore === score) {
             gameText.style.color = 'red';
             gameText.textContent = 'You lost!, you better win next time.'
-            break;
+            gameOver = true;
         }
     }
+    isGameRunning = false;
 }
 
 
 game(5);
+
+
+//Reset button
+button.addEventListener('click', () => {
+    pscore = 0;
+    cscore = 0;
+    playerScore.textContent = `Your score: ${pscore}`;
+    computerScore.textContent = `Computer score: ${pscore}`;
+    gameText.textContent = "Choose Rock, Paper or Scissors!";
+    gameText.style.color = 'white';
+    game(5);
+});
