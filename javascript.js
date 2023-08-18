@@ -16,38 +16,36 @@ function getComputerChoice()
     //Choosing a random number from 0 to 2.
     let number = Math.floor(Math.random() * 3);
 
+    function removeTransition(e) {
+        if (e.propertyName !== 'transform') return;
+        this.classList.remove('computerSelect');
+    }
+
+
     if (number === 0) {
         //Make the computer icon bigger for 0.5s and returns it to normal.
         img[0].classList.add('computerSelect');
-        img[0].addEventListener('transitionend', function(e) {
-            if (e.propertyName !== 'transform') return;
-            this.classList.remove('computerSelect');
-        });
+        img[0].addEventListener('transitionend', removeTransition);
         return "rock";
     }
     if (number === 1) {
         img[1].classList.add('computerSelect');
-        img[1].addEventListener('transitionend', function(e) {
-            if (e.propertyName !== 'transform') return;
-            this.classList.remove('computerSelect');
-        });
+        img[1].addEventListener('transitionend', removeTransition);
         return "paper";
     }
     if (number === 2) {
         img[2].classList.add('computerSelect');
-        img[2].addEventListener('transitionend', function(e) {
-            if (e.propertyName !== 'transform') return;
-            this.classList.remove('computerSelect');
-        });
+        img[2].addEventListener('transitionend', removeTransition);
         return "scissors";
     }
 }
 
 
-function getPlayerChoice()
+function getPlayerChoice(score)
 {
     const playerDiv = document.querySelector('.player');
     const img = playerDiv.querySelectorAll('img');
+
     //Hover functionality.
     img.forEach(icon => {
         icon.addEventListener('mouseenter', function() {
@@ -57,14 +55,21 @@ function getPlayerChoice()
             this.classList.remove('hover');
         });
     });
+
+    function removeTransition(e) {
+        if (e.propertyName !== 'transform') return;
+        this.classList.remove('playerSelect');
+    }
+
     //Selecting change the size of the player icon and returns it again to normal.
     img.forEach(icon => icon.addEventListener('click', function() {
-        this.classList.add('playerSelect');
-        this.addEventListener('transitionend', function(e) {
-            if (e.propertyName !== 'transform') return;
-            this.classList.remove('playerSelect');
-        });
+        //Condition to terminate the clicking when the game is over.
+        if (pscore < score && cscore < score) {
+            this.classList.add('playerSelect');
+            this.addEventListener('transitionend', removeTransition);
+        }
     }));
+
     return new Promise(resolve => {
         img.forEach(icon => icon.addEventListener('click', () => {
             resolve(icon.id);
@@ -95,9 +100,10 @@ function playerRound(playerSelection, computerSelection)
     }
 }
 
+
 async function game(score) {
     while (playerScore !== score || computerScore !== score) {
-        let playerChoice = await getPlayerChoice();
+        let playerChoice = await getPlayerChoice(score);
         let computerChoice = getComputerChoice();
         playerRound(playerChoice, computerChoice);
         if (pscore === score) {
@@ -112,5 +118,6 @@ async function game(score) {
         }
     }
 }
+
 
 game(5);
