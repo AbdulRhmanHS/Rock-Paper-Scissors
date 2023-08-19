@@ -129,8 +129,15 @@ async function game(score) {
 game(5);
 
 
-//Reset button
-button.addEventListener('click', () => {
+function removeButtonTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    this.classList.remove('buttonSelect');
+}
+
+//Reset button.
+button.addEventListener('click', function() {
+    this.classList.add('buttonSelect');
+    this.addEventListener('transitionend', removeButtonTransition);
     pscore = 0;
     cscore = 0;
     playerScore.textContent = `Your score: ${pscore}`;
@@ -139,3 +146,13 @@ button.addEventListener('click', () => {
     gameText.style.color = 'white';
     game(5);
 });
+
+//Hovering for the reset button.
+button.addEventListener('mouseenter', function() {
+    this.classList.add('hover2');
+});
+
+button.addEventListener('mouseleave', function() {
+    this.classList.remove('hover2');
+});
+
